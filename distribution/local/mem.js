@@ -31,8 +31,15 @@ put: (obj, key, callback) => {
 
     get: (key, callback) => {
     let formattedKey, gid;
+    if (typeof key === 'object' && key !== null) {
+        formattedKey = key.key;
+        gid = key.gid;
+    } else {
+        formattedKey = key;
+        gid = defaultGID;
+    }
 
-      if (key === null) {
+      if (formattedKey === null) {
         const allKeys = [];
         const mapValues = Object.values(myMap);
         
@@ -43,17 +50,10 @@ put: (obj, key, callback) => {
             }
         }
         if (typeof callback === 'function') {
-        callback(null, allKeys);
+        callback({}, allKeys);
         }
       }
       else{
-      if (typeof key === 'object' && key !== null) {
-        formattedKey = key.key;
-        gid = key.gid;
-    } else {
-        formattedKey = key;
-        gid = defaultGID;
-    }
     const map = getStorageMap(gid);
     const storedObject = map[formattedKey];
     if (storedObject !== undefined) {

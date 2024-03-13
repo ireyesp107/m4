@@ -526,8 +526,10 @@ test('(6 pts) all.gossip.send()', (done) => {
 //   const key = 'jcarbmpmg';
 
 //   distribution.all.mem.put(user, key, (e, v) => {
+//     console.log(v)
 //     distribution.mygroup.mem.get(key, (e, v) => {
 //       try {
+//         console.log(v)
 //         expect(e).toBeInstanceOf(Error);
 //         expect(v).toBeFalsy();
 //         done();
@@ -577,22 +579,22 @@ test('(6 pts) all.gossip.send()', (done) => {
 //   });
 // });
 
-test('(0.5 pts) all.mem.put/get(jcarb)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
-  const key = 'jcarbmpg';
+// test('(0.5 pts) all.mem.put/get(jcarb)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
+//   const key = 'jcarbmpg';
 
-  distribution.mygroup.mem.put(user, key, (e, v) => {
-    distribution.mygroup.mem.get(key, (e, v) => {
-      try {
-        expect(e).toBeFalsy();
-        expect(v).toEqual(user);
-        done();
-      } catch (error) {
-        done(error);
-      }
-    });
-  });
-});
+//   distribution.mygroup.mem.put(user, key, (e, v) => {
+//     distribution.mygroup.mem.get(key, (e, v) => {
+//       try {
+//         expect(e).toBeFalsy();
+//         expect(v).toEqual(user);
+//         done();
+//       } catch (error) {
+//         done(error);
+//       }
+//     });
+//   });
+// });
 
 // test('(0.5 pts) all.mem.put/del(jcarb)', (done) => {
 //   const user = {first: 'Josiah', last: 'Carberry'};
@@ -630,49 +632,57 @@ test('(0.5 pts) all.mem.put/get(jcarb)', (done) => {
 //   });
 // });
 
-// test('(2.5 pts) all.mem.get(no key)', (done) => {
-//   const users = [
-//     {first: 'Emma', last: 'Watson'},
-//     {first: 'John', last: 'Krasinski'},
-//     {first: 'Julie', last: 'Bowen'},
-//   ];
-//   const keys = [
-//     'ewatson',
-//     'jkrasinski',
-//     'jbowen',
-//   ];
+test('(2.5 pts) all.mem.get(no key)', (done) => {
+  const users = [
+    {first: 'Emma', last: 'Watson'},
+    {first: 'John', last: 'Krasinski'},
+    {first: 'Julie', last: 'Bowen'},
+  ];
+  const keys = [
+    'ewatson',
+    'jkrasinski',
+    'jbowen',
+  ];
+  
 
-//   distribution.mygroup.mem.put(users[0], keys[0], (e, v) => {
-//     try {
-//       expect(e).toBeFalsy();
-//     } catch (error) {
-//       done(error);
-//     }
-//     distribution.mygroup.mem.put(users[1], keys[1], (e, v) => {
-//       try {
-//         expect(e).toBeFalsy();
-//       } catch (error) {
-//         done(error);
-//       }
-//       distribution.mygroup.mem.put(users[2], keys[2], (e, v) => {
-//         try {
-//           expect(e).toBeFalsy();
-//         } catch (error) {
-//           done(error);
-//         }
-//         distribution.mygroup.mem.get(null, (e, v) => {
-//           try {
-//             expect(e).toEqual({});
-//             expect(Object.values(v)).toEqual(expect.arrayContaining(keys));
-//             done();
-//           } catch (error) {
-//             done(error);
-//           }
-//         });
-//       });
-//     });
-//   });
-// });
+  distribution.mygroup.mem.put(users[0], keys[0], (e, v) => {
+    try {
+      console.log("1")
+        console.log(v)
+      expect(e).toBeFalsy();
+    } catch (error) {
+      done(error);
+    }
+    distribution.mygroup.mem.put(users[1], keys[1], (e, v) => {
+      try {
+        console.log("2")
+        console.log(v)
+        expect(e).toBeFalsy();
+      } catch (error) {
+        done(error);
+      }
+      distribution.mygroup.mem.put(users[2], keys[2], (e, v) => {
+        try {
+          console.log("3")
+          console.log(v)
+          expect(e).toBeFalsy();
+        } catch (error) {
+          done(error);
+        }
+        distribution.mygroup.mem.get(null, (e, v) => {
+          try {
+            //console.log(v)
+            expect(e).toEqual({});
+            expect(Object.values(v)).toEqual(expect.arrayContaining(keys));
+            done();
+          } catch (error) {
+            done(error);
+          }
+        });
+      });
+    });
+  });
+});
 
 // test('(0.5 pts) all.mem.put(no key)', (done) => {
 //   const user = {first: 'Josiah', last: 'Carberry'};

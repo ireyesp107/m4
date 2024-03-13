@@ -11,13 +11,10 @@ let mem = (config) => {
 
     return {
         put: (value, key, callback) => {
-
             let groupMap = {}
             local.groups.get(context.gid,(e, v) => {
             //global.distribution[context.gid].groups.get(context.gid , (e, v) => {
             groupMap = v
-            console.log(groupMap)
-
             let nids = []
                     for (const node in groupMap) {
                     if (Object.prototype.hasOwnProperty.call(v, node)) {
