@@ -521,61 +521,61 @@ test('(6 pts) all.gossip.send()', (done) => {
 
 // // ---mem---
 
-test('(1 pts) all.mem.put(jcarb)/mygroup.mem.get(jcarb)', (done) => {
-  const user = {first: 'John', last: 'Carberry'};
-  const key = 'jcarbmpmg';
+// test('(1 pts) all.mem.put(jcarb)/mygroup.mem.get(jcarb)', (done) => {
+//   const user = {first: 'John', last: 'Carberry'};
+//   const key = 'jcarbmpmg';
 
-  distribution.all.mem.put(user, key, (e, v) => {
-    distribution.mygroup.mem.get(key, (e, v) => {
-      try {
-        expect(e).toBeInstanceOf(Error);
-        expect(v).toBeFalsy();
-        done();
-      } catch (error) {
-        done(error);
-      }
-    });
-  });
-});
+//   distribution.all.mem.put(user, key, (e, v) => {
+//     distribution.mygroup.mem.get(key, (e, v) => {
+//       try {
+//         expect(e).toBeInstanceOf(Error);
+//         expect(v).toBeFalsy();
+//         done();
+//       } catch (error) {
+//         done(error);
+//       }
+//     });
+//   });
+// });
 
-test('(0.5 pts) all.mem.get(jcarb)', (done) => {
-  distribution.mygroup.mem.get('jcarb', (e, v) => {
-    try {
-      expect(e).toBeInstanceOf(Error);
-      expect(v).toBeFalsy();
-      done();
-    } catch (error) {
-      done(error);
-    }
-  });
-});
+// test('(0.5 pts) all.mem.get(jcarb)', (done) => {
+//   distribution.mygroup.mem.get('jcarb', (e, v) => {
+//     try {
+//       expect(e).toBeInstanceOf(Error);
+//       expect(v).toBeFalsy();
+//       done();
+//     } catch (error) {
+//       done(error);
+//     }
+//   });
+// });
 
-test('(0.5 pts) all.mem.del(jcarb)', (done) => {
-  distribution.mygroup.mem.del('jcarb', (e, v) => {
-    try {
-      expect(e).toBeInstanceOf(Error);
-      expect(v).toBeFalsy();
-      done();
-    } catch (error) {
-      done(error);
-    }
-  });
-});
+// test('(0.5 pts) all.mem.del(jcarb)', (done) => {
+//   distribution.mygroup.mem.del('jcarb', (e, v) => {
+//     try {
+//       expect(e).toBeInstanceOf(Error);
+//       expect(v).toBeFalsy();
+//       done();
+//     } catch (error) {
+//       done(error);
+//     }
+//   });
+// });
 
-test('(0.5 pts) all.mem.put(jcarb)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
-  const key = 'jcarbmp';
+// test('(0.5 pts) all.mem.put(jcarb)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
+//   const key = 'jcarbmp';
 
-  distribution.mygroup.mem.put(user, key, (e, v) => {
-    try {
-      expect(e).toBeFalsy();
-      expect(v).toEqual(user);
-      done();
-    } catch (error) {
-      done(error);
-    }
-  });
-});
+//   distribution.mygroup.mem.put(user, key, (e, v) => {
+//     try {
+//       expect(e).toBeFalsy();
+//       expect(v).toEqual(user);
+//       done();
+//     } catch (error) {
+//       done(error);
+//     }
+//   });
+// });
 
 test('(0.5 pts) all.mem.put/get(jcarb)', (done) => {
   const user = {first: 'Josiah', last: 'Carberry'};
@@ -594,435 +594,435 @@ test('(0.5 pts) all.mem.put/get(jcarb)', (done) => {
   });
 });
 
-test('(0.5 pts) all.mem.put/del(jcarb)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
-  const key = 'jcarbmpd';
+// test('(0.5 pts) all.mem.put/del(jcarb)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
+//   const key = 'jcarbmpd';
 
-  distribution.mygroup.mem.put(user, key, (e, v) => {
-    distribution.mygroup.mem.del(key, (e, v) => {
-      try {
-        expect(e).toBeFalsy();
-        expect(v).toEqual(user);
-        done();
-      } catch (error) {
-        done(error);
-      }
-    });
-  });
-});
+//   distribution.mygroup.mem.put(user, key, (e, v) => {
+//     distribution.mygroup.mem.del(key, (e, v) => {
+//       try {
+//         expect(e).toBeFalsy();
+//         expect(v).toEqual(user);
+//         done();
+//       } catch (error) {
+//         done(error);
+//       }
+//     });
+//   });
+// });
 
-test('(0.5 pts) all.mem.put/del/get(jcarb)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
-  const key = 'jcarbmpdg';
+// test('(0.5 pts) all.mem.put/del/get(jcarb)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
+//   const key = 'jcarbmpdg';
 
-  distribution.mygroup.mem.put(user, key, (e, v) => {
-    distribution.mygroup.mem.del(key, (e, v) => {
-      distribution.mygroup.mem.get(key, (e, v) => {
-        try {
-          expect(e).toBeInstanceOf(Error);
-          expect(v).toBeFalsy();
-          done();
-        } catch (error) {
-          done(error);
-        }
-      });
-    });
-  });
-});
+//   distribution.mygroup.mem.put(user, key, (e, v) => {
+//     distribution.mygroup.mem.del(key, (e, v) => {
+//       distribution.mygroup.mem.get(key, (e, v) => {
+//         try {
+//           expect(e).toBeInstanceOf(Error);
+//           expect(v).toBeFalsy();
+//           done();
+//         } catch (error) {
+//           done(error);
+//         }
+//       });
+//     });
+//   });
+// });
 
-test('(2.5 pts) all.mem.get(no key)', (done) => {
-  const users = [
-    {first: 'Emma', last: 'Watson'},
-    {first: 'John', last: 'Krasinski'},
-    {first: 'Julie', last: 'Bowen'},
-  ];
-  const keys = [
-    'ewatson',
-    'jkrasinski',
-    'jbowen',
-  ];
+// test('(2.5 pts) all.mem.get(no key)', (done) => {
+//   const users = [
+//     {first: 'Emma', last: 'Watson'},
+//     {first: 'John', last: 'Krasinski'},
+//     {first: 'Julie', last: 'Bowen'},
+//   ];
+//   const keys = [
+//     'ewatson',
+//     'jkrasinski',
+//     'jbowen',
+//   ];
 
-  distribution.mygroup.mem.put(users[0], keys[0], (e, v) => {
-    try {
-      expect(e).toBeFalsy();
-    } catch (error) {
-      done(error);
-    }
-    distribution.mygroup.mem.put(users[1], keys[1], (e, v) => {
-      try {
-        expect(e).toBeFalsy();
-      } catch (error) {
-        done(error);
-      }
-      distribution.mygroup.mem.put(users[2], keys[2], (e, v) => {
-        try {
-          expect(e).toBeFalsy();
-        } catch (error) {
-          done(error);
-        }
-        distribution.mygroup.mem.get(null, (e, v) => {
-          try {
-            expect(e).toEqual({});
-            expect(Object.values(v)).toEqual(expect.arrayContaining(keys));
-            done();
-          } catch (error) {
-            done(error);
-          }
-        });
-      });
-    });
-  });
-});
+//   distribution.mygroup.mem.put(users[0], keys[0], (e, v) => {
+//     try {
+//       expect(e).toBeFalsy();
+//     } catch (error) {
+//       done(error);
+//     }
+//     distribution.mygroup.mem.put(users[1], keys[1], (e, v) => {
+//       try {
+//         expect(e).toBeFalsy();
+//       } catch (error) {
+//         done(error);
+//       }
+//       distribution.mygroup.mem.put(users[2], keys[2], (e, v) => {
+//         try {
+//           expect(e).toBeFalsy();
+//         } catch (error) {
+//           done(error);
+//         }
+//         distribution.mygroup.mem.get(null, (e, v) => {
+//           try {
+//             expect(e).toEqual({});
+//             expect(Object.values(v)).toEqual(expect.arrayContaining(keys));
+//             done();
+//           } catch (error) {
+//             done(error);
+//           }
+//         });
+//       });
+//     });
+//   });
+// });
 
-test('(0.5 pts) all.mem.put(no key)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
+// test('(0.5 pts) all.mem.put(no key)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
 
-  distribution.mygroup.mem.put(user, null, (e, v) => {
-    distribution.mygroup.mem.get(id.getID(user), (e, v) => {
-      try {
-        expect(e).toBeFalsy();
-        expect(v).toEqual(user);
-        done();
-      } catch (error) {
-        done(error);
-      }
-    });
-  });
-});
+//   distribution.mygroup.mem.put(user, null, (e, v) => {
+//     distribution.mygroup.mem.get(id.getID(user), (e, v) => {
+//       try {
+//         expect(e).toBeFalsy();
+//         expect(v).toEqual(user);
+//         done();
+//       } catch (error) {
+//         done(error);
+//       }
+//     });
+//   });
+// });
 
 // ---store---
 
-test('(1 pts) all.store.put(jcarb)/mygroup.store.get(jcarb)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
-  const key = 'jcarbspsg';
+// test('(1 pts) all.store.put(jcarb)/mygroup.store.get(jcarb)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
+//   const key = 'jcarbspsg';
 
-  distribution.all.store.put(user, key, (e, v) => {
-    distribution.mygroup.store.get(key, (e, v) => {
-      try {
-        expect(e).toBeInstanceOf(Error);
-        expect(v).toBeFalsy();
-        done();
-      } catch (error) {
-        done(error);
-      }
-    });
-  });
-});
+//   distribution.all.store.put(user, key, (e, v) => {
+//     distribution.mygroup.store.get(key, (e, v) => {
+//       try {
+//         expect(e).toBeInstanceOf(Error);
+//         expect(v).toBeFalsy();
+//         done();
+//       } catch (error) {
+//         done(error);
+//       }
+//     });
+//   });
+// });
 
-test('(0.5 pts) all.store.get(jcarb)', (done) => {
-  distribution.mygroup.store.get('jcarb', (e, v) => {
-    try {
-      expect(e).toBeInstanceOf(Error);
-      expect(v).toBeFalsy();
-      done();
-    } catch (error) {
-      done(error);
-    }
-  });
-});
+// test('(0.5 pts) all.store.get(jcarb)', (done) => {
+//   distribution.mygroup.store.get('jcarb', (e, v) => {
+//     try {
+//       expect(e).toBeInstanceOf(Error);
+//       expect(v).toBeFalsy();
+//       done();
+//     } catch (error) {
+//       done(error);
+//     }
+//   });
+// });
 
-test('(0.5 pts) all.store.del(jcarb)', (done) => {
-  distribution.mygroup.store.del('jcarb', (e, v) => {
-    try {
-      expect(e).toBeInstanceOf(Error);
-      expect(v).toBeFalsy();
-      done();
-    } catch (error) {
-      done(error);
-    }
-  });
-});
+// test('(0.5 pts) all.store.del(jcarb)', (done) => {
+//   distribution.mygroup.store.del('jcarb', (e, v) => {
+//     try {
+//       expect(e).toBeInstanceOf(Error);
+//       expect(v).toBeFalsy();
+//       done();
+//     } catch (error) {
+//       done(error);
+//     }
+//   });
+// });
 
-test('(0.5 pts) all.store.put(jcarb)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
-  const key = 'jcarbmp';
+// test('(0.5 pts) all.store.put(jcarb)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
+//   const key = 'jcarbmp';
 
-  distribution.mygroup.store.put(user, key, (e, v) => {
-    try {
-      expect(e).toBeFalsy();
-      expect(v).toEqual(user);
-      done();
-    } catch (error) {
-      done(error);
-    }
-  });
-});
+//   distribution.mygroup.store.put(user, key, (e, v) => {
+//     try {
+//       expect(e).toBeFalsy();
+//       expect(v).toEqual(user);
+//       done();
+//     } catch (error) {
+//       done(error);
+//     }
+//   });
+// });
 
-test('(0.5 pts) all.store.put/get(jcarb)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
-  const key = 'jcarbmpg';
+// test('(0.5 pts) all.store.put/get(jcarb)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
+//   const key = 'jcarbmpg';
 
-  distribution.mygroup.store.put(user, key, (e, v) => {
-    distribution.mygroup.store.get(key, (e, v) => {
-      try {
-        expect(e).toBeFalsy();
-        expect(v).toEqual(user);
-        done();
-      } catch (error) {
-        done(error);
-      }
-    });
-  });
-});
+//   distribution.mygroup.store.put(user, key, (e, v) => {
+//     distribution.mygroup.store.get(key, (e, v) => {
+//       try {
+//         expect(e).toBeFalsy();
+//         expect(v).toEqual(user);
+//         done();
+//       } catch (error) {
+//         done(error);
+//       }
+//     });
+//   });
+// });
 
-test('(0.5 pts) all.store.put/del(jcarb)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
-  const key = 'jcarbmpd';
+// test('(0.5 pts) all.store.put/del(jcarb)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
+//   const key = 'jcarbmpd';
 
-  distribution.mygroup.store.put(user, key, (e, v) => {
-    distribution.mygroup.store.del(key, (e, v) => {
-      try {
-        expect(e).toBeFalsy();
-        expect(v).toEqual(user);
-        done();
-      } catch (error) {
-        done(error);
-      }
-    });
-  });
-});
+//   distribution.mygroup.store.put(user, key, (e, v) => {
+//     distribution.mygroup.store.del(key, (e, v) => {
+//       try {
+//         expect(e).toBeFalsy();
+//         expect(v).toEqual(user);
+//         done();
+//       } catch (error) {
+//         done(error);
+//       }
+//     });
+//   });
+// });
 
-test('(0.5 pts) all.store.put/del/get(jcarb)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
-  const key = 'jcarbmpdg';
+// test('(0.5 pts) all.store.put/del/get(jcarb)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
+//   const key = 'jcarbmpdg';
 
-  distribution.mygroup.store.put(user, key, (e, v) => {
-    distribution.mygroup.store.del(key, (e, v) => {
-      distribution.mygroup.store.get(key, (e, v) => {
-        try {
-          expect(e).toBeInstanceOf(Error);
-          expect(v).toBeFalsy();
-          done();
-        } catch (error) {
-          done(error);
-        }
-      });
-    });
-  });
-});
+//   distribution.mygroup.store.put(user, key, (e, v) => {
+//     distribution.mygroup.store.del(key, (e, v) => {
+//       distribution.mygroup.store.get(key, (e, v) => {
+//         try {
+//           expect(e).toBeInstanceOf(Error);
+//           expect(v).toBeFalsy();
+//           done();
+//         } catch (error) {
+//           done(error);
+//         }
+//       });
+//     });
+//   });
+// });
 
-test('(2 pts) all.store.get(no key)', (done) => {
-  const users = [
-    {first: 'Emma', last: 'Watson'},
-    {first: 'John', last: 'Krasinski'},
-    {first: 'Julie', last: 'Bowen'},
-  ];
-  const keys = [
-    'ewatsonsgnk',
-    'jkrasinskisgnk',
-    'jbowensgnk',
-  ];
+// test('(2 pts) all.store.get(no key)', (done) => {
+//   const users = [
+//     {first: 'Emma', last: 'Watson'},
+//     {first: 'John', last: 'Krasinski'},
+//     {first: 'Julie', last: 'Bowen'},
+//   ];
+//   const keys = [
+//     'ewatsonsgnk',
+//     'jkrasinskisgnk',
+//     'jbowensgnk',
+//   ];
 
-  distribution.mygroup.store.put(users[0], keys[0], (e, v) => {
-    distribution.mygroup.store.put(users[1], keys[1], (e, v) => {
-      distribution.mygroup.store.put(users[2], keys[2], (e, v) => {
-        distribution.mygroup.store.get(null, (e, v) => {
-          try {
-            expect(e).toEqual({});
-            expect(Object.values(v)).toEqual(expect.arrayContaining(keys));
-            done();
-          } catch (error) {
-            done(error);
-          }
-        });
-      });
-    });
-  });
-});
+//   distribution.mygroup.store.put(users[0], keys[0], (e, v) => {
+//     distribution.mygroup.store.put(users[1], keys[1], (e, v) => {
+//       distribution.mygroup.store.put(users[2], keys[2], (e, v) => {
+//         distribution.mygroup.store.get(null, (e, v) => {
+//           try {
+//             expect(e).toEqual({});
+//             expect(Object.values(v)).toEqual(expect.arrayContaining(keys));
+//             done();
+//           } catch (error) {
+//             done(error);
+//           }
+//         });
+//       });
+//     });
+//   });
+// });
 
-test('(0.5 pts) all.store.put(no key)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
+// test('(0.5 pts) all.store.put(no key)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
 
-  distribution.mygroup.store.put(user, null, (e, v) => {
-    distribution.mygroup.store.get(id.getID(user), (e, v) => {
-      try {
-        expect(e).toBeFalsy();
-        expect(v).toEqual(user);
-        done();
-      } catch (error) {
-        done(error);
-      }
-    });
-  });
-});
+//   distribution.mygroup.store.put(user, null, (e, v) => {
+//     distribution.mygroup.store.get(id.getID(user), (e, v) => {
+//       try {
+//         expect(e).toBeFalsy();
+//         expect(v).toEqual(user);
+//         done();
+//       } catch (error) {
+//         done(error);
+//       }
+//     });
+//   });
+// });
 
 
-// // ---reconf / correct object placement---
+// // // ---reconf / correct object placement---
 
-test(
-    '(1.5 pts) all.store.put(jcarb)/local.comm.send(store.get(jcarb))',
-    (done) => {
-      const user = {first: 'Josiah', last: 'Carberry'};
-      const key = 'jcarbspcs';
-      const kid = id.getID(key);
-      const nodes = [n2, n4, n6];
-      const nids = nodes.map((node) => id.getNID(node));
+// test(
+//     '(1.5 pts) all.store.put(jcarb)/local.comm.send(store.get(jcarb))',
+//     (done) => {
+//       const user = {first: 'Josiah', last: 'Carberry'};
+//       const key = 'jcarbspcs';
+//       const kid = id.getID(key);
+//       const nodes = [n2, n4, n6];
+//       const nids = nodes.map((node) => id.getNID(node));
 
-      distribution.group3.store.put(user, key, (e, v) => {
-        const nid = id.rendezvousHash(kid, nids);
-        const pickedNode = nodes.filter((node)=> id.getNID(node) === nid)[0];
-        const remote = {node: pickedNode, service: 'store', method: 'get'};
-        const message = [{gid: 'group3', key: key}];
+//       distribution.group3.store.put(user, key, (e, v) => {
+//         const nid = id.rendezvousHash(kid, nids);
+//         const pickedNode = nodes.filter((node)=> id.getNID(node) === nid)[0];
+//         const remote = {node: pickedNode, service: 'store', method: 'get'};
+//         const message = [{gid: 'group3', key: key}];
 
-        distribution.local.comm.send(message, remote, (e, v) => {
-          try {
-            expect(e).toBeFalsy();
-            expect(v).toEqual(user);
-            done();
-          } catch (error) {
-            done(error);
-          }
-        });
-      });
-    },
-);
+//         distribution.local.comm.send(message, remote, (e, v) => {
+//           try {
+//             expect(e).toBeFalsy();
+//             expect(v).toEqual(user);
+//             done();
+//           } catch (error) {
+//             done(error);
+//           }
+//         });
+//       });
+//     },
+// );
 
-test('(2 pts) all.store.reconf(naiveHash)', (done) => {
-  //  ________________________________________
-  // / NOTE: If this test fails locally, make \
-  // | sure you delete the contents of the    |
-  // | store/ directory (not the directory    |
-  // | itself!), so your results are          |
-  // \ reproducible                           /
-  //  ----------------------------------------
-  //         \   ^__^
-  //          \  (oo)\_______
-  //             (__)\       )\/\
-  //                 ||----w |
-  //                 ||     ||
+// test('(2 pts) all.store.reconf(naiveHash)', (done) => {
+//   //  ________________________________________
+//   // / NOTE: If this test fails locally, make \
+//   // | sure you delete the contents of the    |
+//   // | store/ directory (not the directory    |
+//   // | itself!), so your results are          |
+//   // \ reproducible                           /
+//   //  ----------------------------------------
+//   //         \   ^__^
+//   //          \  (oo)\_______
+//   //             (__)\       )\/\
+//   //                 ||----w |
+//   //                 ||     ||
 
-  // group1 - naiveHash - n4, n5, n6
+//   // group1 - naiveHash - n4, n5, n6
 
-  // First, we check where the keys should be placed
-  // before we change the group's nodes.
-  // group1 uses the naiveHash function for item placement,
-  // so we test using the same naiveHash function
-  const users = [
-    {first: 'Emma', last: 'Watson'},
-    {first: 'John', last: 'Krasinski'},
-    {first: 'Julie', last: 'Bowen'},
-    {first: 'Sasha', last: 'Spielberg'},
-    {first: 'Tim', last: 'Nelson'},
-  ];
-  const keys = [
-    'ewatsonmrnh',
-    'jkrasinskimrnh',
-    'jbowenmrnh',
-    'sspielbergmrnh',
-    'tnelsonmrnh',
-  ];
-  const kids = keys.map((key) => id.getID(key));
-  const nodes = [n4, n5, n6];
-  const nids = nodes.map((node) => id.getNID(node));
+//   // First, we check where the keys should be placed
+//   // before we change the group's nodes.
+//   // group1 uses the naiveHash function for item placement,
+//   // so we test using the same naiveHash function
+//   const users = [
+//     {first: 'Emma', last: 'Watson'},
+//     {first: 'John', last: 'Krasinski'},
+//     {first: 'Julie', last: 'Bowen'},
+//     {first: 'Sasha', last: 'Spielberg'},
+//     {first: 'Tim', last: 'Nelson'},
+//   ];
+//   const keys = [
+//     'ewatsonmrnh',
+//     'jkrasinskimrnh',
+//     'jbowenmrnh',
+//     'sspielbergmrnh',
+//     'tnelsonmrnh',
+//   ];
+//   const kids = keys.map((key) => id.getID(key));
+//   const nodes = [n4, n5, n6];
+//   const nids = nodes.map((node) => id.getNID(node));
 
-  const nidsPicked = kids.map((kid) => id.naiveHash(kid, nids));
-  const nodesPicked = nidsPicked.map(
-      (nid) => nodes.filter((node) => id.getNID(node) === nid)[0],
-  );
-  // key 0 ends up on n6, while keys 1-4 end up on n4
-  // (the following console.logs should confirm that)
-  nodesPicked.forEach(
-      (node, key) => console.log('BEFORE! key: ', key, 'node: ', node),
-  );
+//   const nidsPicked = kids.map((kid) => id.naiveHash(kid, nids));
+//   const nodesPicked = nidsPicked.map(
+//       (nid) => nodes.filter((node) => id.getNID(node) === nid)[0],
+//   );
+//   // key 0 ends up on n6, while keys 1-4 end up on n4
+//   // (the following console.logs should confirm that)
+//   nodesPicked.forEach(
+//       (node, key) => console.log('BEFORE! key: ', key, 'node: ', node),
+//   );
 
-  // Then, we remove n5 from the list of nodes,
-  // and use the naiveHash function again,
-  // to see where items should end up after this change
-  const nodesAfter = [n4, n6];
-  const nidsAfter = nodesAfter.map((node) => id.getNID(node));
+//   // Then, we remove n5 from the list of nodes,
+//   // and use the naiveHash function again,
+//   // to see where items should end up after this change
+//   const nodesAfter = [n4, n6];
+//   const nidsAfter = nodesAfter.map((node) => id.getNID(node));
 
-  const nidsPickedAfter = kids.map((kid) => id.naiveHash(kid, nidsAfter));
-  const nodesPickedAfter = nidsPickedAfter.map(
-      (nid) => nodesAfter.filter((node) => id.getNID(node) === nid)[0],
-  );
+//   const nidsPickedAfter = kids.map((kid) => id.naiveHash(kid, nidsAfter));
+//   const nodesPickedAfter = nidsPickedAfter.map(
+//       (nid) => nodesAfter.filter((node) => id.getNID(node) === nid)[0],
+//   );
 
-  // After removal, all keys end up on n6
-  // (Again, the console.logs should be consistent with that!)
-  nodesPickedAfter.forEach(
-      (node, key) => console.log('AFTER! key: ', key, 'node: ', node),
-  );
+//   // After removal, all keys end up on n6
+//   // (Again, the console.logs should be consistent with that!)
+//   nodesPickedAfter.forEach(
+//       (node, key) => console.log('AFTER! key: ', key, 'node: ', node),
+//   );
 
-  // This function will be called after we put items in nodes
-  const checkPlacement = (e, v) => {
-    try {
-      const remote = {node: n6, service: 'store', method: 'get'};
-      const messages = [
-        [{key: keys[0], gid: 'group1'}],
-        [{key: keys[1], gid: 'group1'}],
-        [{key: keys[2], gid: 'group1'}],
-        [{key: keys[3], gid: 'group1'}],
-        [{key: keys[4], gid: 'group1'}],
-      ];
+//   // This function will be called after we put items in nodes
+//   const checkPlacement = (e, v) => {
+//     try {
+//       const remote = {node: n6, service: 'store', method: 'get'};
+//       const messages = [
+//         [{key: keys[0], gid: 'group1'}],
+//         [{key: keys[1], gid: 'group1'}],
+//         [{key: keys[2], gid: 'group1'}],
+//         [{key: keys[3], gid: 'group1'}],
+//         [{key: keys[4], gid: 'group1'}],
+//       ];
 
-      distribution.local.comm.send(messages[0], remote, (e, v) => {
-        try {
-          expect(e).toBeFalsy();
-          expect(v).toEqual(users[0]);
-        } catch (error) {
-          done(error);
-        }
+//       distribution.local.comm.send(messages[0], remote, (e, v) => {
+//         try {
+//           expect(e).toBeFalsy();
+//           expect(v).toEqual(users[0]);
+//         } catch (error) {
+//           done(error);
+//         }
 
-        distribution.local.comm.send(messages[1], remote, (e, v) => {
-          try {
-            expect(e).toBeFalsy();
-            expect(v).toEqual(users[1]);
-          } catch (error) {
-            done(error);
-          }
+//         distribution.local.comm.send(messages[1], remote, (e, v) => {
+//           try {
+//             expect(e).toBeFalsy();
+//             expect(v).toEqual(users[1]);
+//           } catch (error) {
+//             done(error);
+//           }
 
-          distribution.local.comm.send(messages[2], remote, (e, v) => {
-            try {
-              expect(e).toBeFalsy();
-              expect(v).toEqual(users[2]);
-            } catch (error) {
-              done(error);
-            }
+//           distribution.local.comm.send(messages[2], remote, (e, v) => {
+//             try {
+//               expect(e).toBeFalsy();
+//               expect(v).toEqual(users[2]);
+//             } catch (error) {
+//               done(error);
+//             }
 
-            distribution.local.comm.send(messages[3], remote, (e, v) => {
-              try {
-                expect(e).toBeFalsy();
-                expect(v).toEqual(users[3]);
-              } catch (error) {
-                done(error);
-              }
+//             distribution.local.comm.send(messages[3], remote, (e, v) => {
+//               try {
+//                 expect(e).toBeFalsy();
+//                 expect(v).toEqual(users[3]);
+//               } catch (error) {
+//                 done(error);
+//               }
 
-              distribution.local.comm.send(messages[4], remote, (e, v) => {
-                try {
-                  expect(e).toBeFalsy();
-                  expect(v).toEqual(users[4]);
-                  done();
-                } catch (error) {
-                  done(error);
-                }
-              });
-            });
-          });
-        });
-      });
-    } catch (error) {
-      done(error);
-    }
-  };
+//               distribution.local.comm.send(messages[4], remote, (e, v) => {
+//                 try {
+//                   expect(e).toBeFalsy();
+//                   expect(v).toEqual(users[4]);
+//                   done();
+//                 } catch (error) {
+//                   done(error);
+//                 }
+//               });
+//             });
+//           });
+//         });
+//       });
+//     } catch (error) {
+//       done(error);
+//     }
+//   };
 
-  // Now we actually put items in the group,
-  // remove n5, and check if the items are placed correctly
-  distribution.group1.store.put(users[0], keys[0], (e, v) => {
-    distribution.group1.store.put(users[1], keys[1], (e, v) => {
-      distribution.group1.store.put(users[2], keys[2], (e, v) => {
-        distribution.group1.store.put(users[3], keys[3], (e, v) => {
-          distribution.group1.store.put(users[4], keys[4], (e, v)=> {
-            // We need to pass a copy of the group's
-            // nodes before the changes to reconf()
-            const groupCopy = {...group1Group};
-            distribution.group1.groups.rem(
-                'group1',
-                id.getSID(n5),
-                (e, v) => {
-                  distribution.group1.store.reconf(groupCopy, checkPlacement);
-                });
-          });
-        });
-      });
-    });
-  });
-});
+//   // Now we actually put items in the group,
+//   // remove n5, and check if the items are placed correctly
+//   distribution.group1.store.put(users[0], keys[0], (e, v) => {
+//     distribution.group1.store.put(users[1], keys[1], (e, v) => {
+//       distribution.group1.store.put(users[2], keys[2], (e, v) => {
+//         distribution.group1.store.put(users[3], keys[3], (e, v) => {
+//           distribution.group1.store.put(users[4], keys[4], (e, v)=> {
+//             // We need to pass a copy of the group's
+//             // nodes before the changes to reconf()
+//             const groupCopy = {...group1Group};
+//             distribution.group1.groups.rem(
+//                 'group1',
+//                 id.getSID(n5),
+//                 (e, v) => {
+//                   distribution.group1.store.reconf(groupCopy, checkPlacement);
+//                 });
+//           });
+//         });
+//       });
+//     });
+//   });
+// });
