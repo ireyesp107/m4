@@ -1,5 +1,5 @@
 const id = require('../util/id');
-let myMap = {}; // In-memory myMap
+//let myMap = {}; // In-memory myMap
 const defaultGID = 'local';
 
 function getStorageMap(gid = defaultGID) {
@@ -10,7 +10,7 @@ function getStorageMap(gid = defaultGID) {
 }
 
 const mem = {
-
+ //myMap: {},
 put: (obj, key, callback) => {
     let formattedKey, gid;
     if (typeof key === 'object' && key !== null) {
@@ -59,7 +59,7 @@ put: (obj, key, callback) => {
     if (storedObject !== undefined) {
         callback(null, storedObject);
     } else {
-        callback(new Error("No Object Exists"), null);
+        callback(new Error("BROBRO"), myMap);
     }
 }
 },

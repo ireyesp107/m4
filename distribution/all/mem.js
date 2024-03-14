@@ -2,13 +2,10 @@ const id = require('../util/id');
 const local = require('../local/local');
 const globalDistribution = require('../../distribution.js'); // Ensure this path is correct
 
-let context = {};
-
 let mem = (config) => {
+    let context = {};
     context.gid = config.gid || "all"; // Node group ID
     context.hash = config.hash || id.naiveHash; // Hash function
-    
-
     return {
         put: (value, key, callback) => {
             let groupMap = {}

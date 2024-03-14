@@ -526,10 +526,8 @@ test('(1 pts) all.mem.put(jcarb)/mygroup.mem.get(jcarb)', (done) => {
   const key = 'jcarbmpmg';
 
   distribution.all.mem.put(user, key, (e, v) => {
-    console.log(v)
     distribution.mygroup.mem.get(key, (e, v) => {
       try {
-        console.log(v)
         expect(e).toBeInstanceOf(Error);
         expect(v).toBeFalsy();
         done();
@@ -647,24 +645,18 @@ test('(2.5 pts) all.mem.get(no key)', (done) => {
 
   distribution.mygroup.mem.put(users[0], keys[0], (e, v) => {
     try {
-      console.log("1")
-        console.log(v)
       expect(e).toBeFalsy();
     } catch (error) {
       done(error);
     }
     distribution.mygroup.mem.put(users[1], keys[1], (e, v) => {
       try {
-        console.log("2")
-        console.log(v)
         expect(e).toBeFalsy();
       } catch (error) {
         done(error);
       }
       distribution.mygroup.mem.put(users[2], keys[2], (e, v) => {
         try {
-          console.log("3")
-          console.log(v)
           expect(e).toBeFalsy();
         } catch (error) {
           done(error);
@@ -688,8 +680,10 @@ test('(0.5 pts) all.mem.put(no key)', (done) => {
   const user = {first: 'Josiah', last: 'Carberry'};
 
   distribution.mygroup.mem.put(user, null, (e, v) => {
+    console.log(e)
     distribution.mygroup.mem.get(id.getID(user), (e, v) => {
       try {
+        console.log(v)
         expect(e).toBeFalsy();
         expect(v).toEqual(user);
         done();
