@@ -50,7 +50,7 @@ put: (obj, key, callback) => {
             }
         }
         if (typeof callback === 'function') {
-        callback({}, allKeys);
+        callback(null, allKeys);
         }
       }
       else{

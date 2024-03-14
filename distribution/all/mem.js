@@ -27,8 +27,8 @@ let mem = (config) => {
             const kid = id.getID(enhancedKey);
              const targetNID = context.hash(kid, nids);
              const targetNode = groupMap[targetNID.substring(0,5)];
-            
-            if (targetNode.nid === id.getNID(global.nodeConfig)) {
+
+            if (targetNID === id.getNID(global.nodeConfig)) {
                 local.mem.put([value,enhancedKey],callback);
             } else {
                 local.comm.send([value,enhancedKey], {node: targetNode, service: 'mem', method: 'put'},callback)
@@ -54,7 +54,13 @@ let mem = (config) => {
             const kid = id.getID(enhancedKey);
              const targetNID = context.hash(kid, nids);
              const targetNode = groupMap[targetNID.substring(0,5)];
-            if (targetNode.nid === id.getNID(global.nodeConfig)) {
+             console.log(targetNode)
+             if(key === null){
+                global.distribution[context.gid].comm.send([enhancedKey],{service: 'mem', method: 'get'}, (e, v) => {
+                    callback({},Object.values(v).flat())
+                })
+             }
+            else if (targetNID === id.getNID(global.nodeConfig)) {
                 local.mem.put([value,enhancedKey],callback);
             } else {
                 local.comm.send([enhancedKey], {node: targetNode, service: 'mem', method: 'get'},callback)
@@ -71,10 +77,7 @@ let mem = (config) => {
             let nids = []
                     for (const node in groupMap) {
                     if (Object.prototype.hasOwnProperty.call(v, node)) {
-
                         nids.push(id.getNID(groupMap[node]))
-                        // groupMap[id.getNID(groupMap[node])] = groupMap[node]
-                        // delete groupMap[node];
                     }}
             let enhancedKey = {key: key, gid: context.gid}
             const kid = id.getID(enhancedKey);
