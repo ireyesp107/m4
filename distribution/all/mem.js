@@ -84,13 +84,13 @@ let mem = (config) => {
                         nids.push(id.getNID(groupMap[node]))
                     }}
             let enhancedKey = {key: key, gid: context.gid}
-            const kid = id.getID(enhancedKey);
+            const kid = id.getID(enhancedKey.key);
              const targetNID = context.hash(kid, nids);
              const targetNode = groupMap[targetNID.substring(0,5)];
             if (targetNode.nid === id.getNID(global.nodeConfig)) {
-                local.mem.del([value,enhancedKey],callback);
+                local.mem.del([enhancedKey],callback);
             } else {
-                local.comm.send([enhancedKey], {node: targetNode, service: 'mem', method: 'get'},callback)
+                local.comm.send([enhancedKey], {node: targetNode, service: 'mem', method: 'del'},callback)
             }
         })
         },

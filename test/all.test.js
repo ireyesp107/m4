@@ -619,7 +619,6 @@ test('(0.5 pts) all.mem.put/del/get(jcarb)', (done) => {
     distribution.mygroup.mem.del(key, (e, v) => {
       distribution.mygroup.mem.get(key, (e, v) => {
         try {
-          console.log(v)
           expect(e).toBeInstanceOf(Error);
           expect(v).toBeFalsy();
           done();
