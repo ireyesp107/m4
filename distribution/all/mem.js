@@ -21,11 +21,16 @@ let mem = (config) => {
                         // delete groupMap[node];
                     }}
             let enhancedKey = {key: key, gid: context.gid}
-            const kid = id.getID(enhancedKey);
+            const kid = id.getID(enhancedKey.key);
              const targetNID = context.hash(kid, nids);
              const targetNode = groupMap[targetNID.substring(0,5)];
 
-            if (targetNID === id.getNID(global.nodeConfig)) {
+            if(enhancedKey.key === null){
+                global.distribution[context.gid].comm.send([value, enhancedKey],{service: 'mem', method: 'put'}, (e, v) => {
+                    callback({},Object.values(v).flat())
+                })
+            }
+             else if (targetNID === id.getNID(global.nodeConfig)) {
                 local.mem.put([value,enhancedKey],callback);
             } else {
                 local.comm.send([value,enhancedKey], {node: targetNode, service: 'mem', method: 'put'},callback)
@@ -48,7 +53,9 @@ let mem = (config) => {
                         // delete groupMap[node];
                     }}
             let enhancedKey = {key: key, gid: context.gid}
-            const kid = id.getID(enhancedKey);
+            console.log(enhancedKey.key + "GET")
+
+            const kid = id.getID(enhancedKey.key);
              const targetNID = context.hash(kid, nids);
              const targetNode = groupMap[targetNID.substring(0,5)];
              console.log(targetNode)
@@ -58,7 +65,7 @@ let mem = (config) => {
                 })
              }
             else if (targetNID === id.getNID(global.nodeConfig)) {
-                local.mem.put([value,enhancedKey],callback);
+                local.mem.get([enhancedKey],callback);
             } else {
                 local.comm.send([enhancedKey], {node: targetNode, service: 'mem', method: 'get'},callback)
             }
@@ -81,7 +88,7 @@ let mem = (config) => {
              const targetNID = context.hash(kid, nids);
              const targetNode = groupMap[targetNID.substring(0,5)];
             if (targetNode.nid === id.getNID(global.nodeConfig)) {
-                local.mem.put([value,enhancedKey],callback);
+                local.mem.del([value,enhancedKey],callback);
             } else {
                 local.comm.send([enhancedKey], {node: targetNode, service: 'mem', method: 'get'},callback)
             }
