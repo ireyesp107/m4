@@ -696,22 +696,22 @@ test('(1 pts) all.mem.put(jcarb)/mygroup.mem.get(jcarb)', (done) => {
 
 // ---store---
 
-// test('(1 pts) all.store.put(jcarb)/mygroup.store.get(jcarb)', (done) => {
-//   const user = {first: 'Josiah', last: 'Carberry'};
-//   const key = 'jcarbspsg';
+test('(1 pts) all.store.put(jcarb)/mygroup.store.get(jcarb)', (done) => {
+  const user = {first: 'Josiah', last: 'Carberry'};
+  const key = 'jcarbspsg';
 
-//   distribution.all.store.put(user, key, (e, v) => {
-//     distribution.mygroup.store.get(key, (e, v) => {
-//       try {
-//         expect(e).toBeInstanceOf(Error);
-//         expect(v).toBeFalsy();
-//         done();
-//       } catch (error) {
-//         done(error);
-//       }
-//     });
-//   });
-// });
+  distribution.all.store.put(user, key, (e, v) => {
+    distribution.mygroup.store.get(key, (e, v) => {
+      try {
+        expect(e).toBeInstanceOf(Error);
+        expect(v).toBeFalsy();
+        done();
+      } catch (error) {
+        done(error);
+      }
+    });
+  });
+});
 
 // test('(0.5 pts) all.store.get(jcarb)', (done) => {
 //   distribution.mygroup.store.get('jcarb', (e, v) => {
