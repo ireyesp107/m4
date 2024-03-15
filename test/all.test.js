@@ -641,7 +641,7 @@ test('(1 pts) all.mem.put(jcarb)/mygroup.mem.get(jcarb)', (done) => {
 //     'jkrasinski',
 //     'jbowen',
 //   ];
-  
+
 
 //   distribution.mygroup.mem.put(users[0], keys[0], (e, v) => {
 //     try {
@@ -1022,7 +1022,7 @@ test('(1 pts) all.store.put(jcarb)/mygroup.store.get(jcarb)', (done) => {
 //                 'group1',
 //                 id.getSID(n5),
 //                 (e, v) => {
-//                   distribution.group1.store.reconf(groupCopy, checkPlacement);
+//                  distribution.group1.store.reconf(groupCopy, checkPlacement);
 //                 });
 //           });
 //         });
