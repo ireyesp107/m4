@@ -1,4 +1,4 @@
-global.nodeConfig = {ip: '127.0.0.1', port: 8080};
+global.nodeConfig = {ip: '127.0.0.1', port: 8089};
 const distribution = require('../distribution');
 const id = distribution.util.id;
 
@@ -525,9 +525,7 @@ test('(1 pts) all.mem.put(jcarb)/mygroup.mem.get(jcarb)', (done) => {
   const user = {first: 'John', last: 'Carberry'};
   const key = 'jcarbmpmg';
 
-  console.log("ABOUT TO ENTER PUT")
   distribution.all.mem.put(user, key, (e, v) => {
-    console.log("MADE IT ")
     distribution.mygroup.mem.get(key, (e, v) => {
       try {
         expect(e).toBeInstanceOf(Error);

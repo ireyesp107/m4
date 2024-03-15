@@ -1,16 +1,16 @@
 const id = require('../util/id');
-//let mem.myMap = {}; // In-memory mem.myMap
+let myMap = {}; // In-memory myMap
 const defaultGID = 'local';
 
 function getStorageMap(gid = defaultGID) {
-    if (!mem.myMap[gid]) {
-        mem.myMap[gid] = {}; // Initialize a new map for this gid if it doesn't exist
+    if (!myMap[gid]) {
+        myMap[gid] = {}; // Initialize a new map for this gid if it doesn't exist
     }
-    return mem.myMap[gid];
+    return myMap[gid];
 }
 
 const mem = {
- myMap: {},
+ //myMap: {},
 put: (obj, key, callback) => {
     let formattedKey, gid;
     if (typeof key === 'object' && key !== null) {
@@ -41,7 +41,7 @@ put: (obj, key, callback) => {
 
       if (formattedKey === null) {
         const allKeys = [];
-        const mapValues = Object.values(mem.myMap);
+        const mapValues = Object.values(myMap);
         
         for (const groupMap of mapValues) {
             const keys = Object.keys(groupMap);
