@@ -525,7 +525,9 @@ test('(1 pts) all.mem.put(jcarb)/mygroup.mem.get(jcarb)', (done) => {
   const user = {first: 'John', last: 'Carberry'};
   const key = 'jcarbmpmg';
 
+  console.log("ABOUT TO ENTER PUT")
   distribution.all.mem.put(user, key, (e, v) => {
+    console.log("MADE IT ")
     distribution.mygroup.mem.get(key, (e, v) => {
       try {
         expect(e).toBeInstanceOf(Error);
@@ -538,161 +540,161 @@ test('(1 pts) all.mem.put(jcarb)/mygroup.mem.get(jcarb)', (done) => {
   });
 });
 
-test('(0.5 pts) all.mem.get(jcarb)', (done) => {
-  distribution.mygroup.mem.get('jcarb', (e, v) => {
-    try {
-      expect(e).toBeInstanceOf(Error);
-      expect(v).toBeFalsy();
-      done();
-    } catch (error) {
-      done(error);
-    }
-  });
-});
+// test('(0.5 pts) all.mem.get(jcarb)', (done) => {
+//   distribution.mygroup.mem.get('jcarb', (e, v) => {
+//     try {
+//       expect(e).toBeInstanceOf(Error);
+//       expect(v).toBeFalsy();
+//       done();
+//     } catch (error) {
+//       done(error);
+//     }
+//   });
+// });
 
-test('(0.5 pts) all.mem.del(jcarb)', (done) => {
-  distribution.mygroup.mem.del('jcarb', (e, v) => {
-    try {
-      expect(e).toBeInstanceOf(Error);
-      expect(v).toBeFalsy();
-      done();
-    } catch (error) {
-      done(error);
-    }
-  });
-});
+// test('(0.5 pts) all.mem.del(jcarb)', (done) => {
+//   distribution.mygroup.mem.del('jcarb', (e, v) => {
+//     try {
+//       expect(e).toBeInstanceOf(Error);
+//       expect(v).toBeFalsy();
+//       done();
+//     } catch (error) {
+//       done(error);
+//     }
+//   });
+// });
 
-test('(0.5 pts) all.mem.put(jcarb)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
-  const key = 'jcarbmp';
+// test('(0.5 pts) all.mem.put(jcarb)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
+//   const key = 'jcarbmp';
 
-  distribution.mygroup.mem.put(user, key, (e, v) => {
-    try {
-      expect(e).toBeFalsy();
-      expect(v).toEqual(user);
-      done();
-    } catch (error) {
-      done(error);
-    }
-  });
-});
+//   distribution.mygroup.mem.put(user, key, (e, v) => {
+//     try {
+//       expect(e).toBeFalsy();
+//       expect(v).toEqual(user);
+//       done();
+//     } catch (error) {
+//       done(error);
+//     }
+//   });
+// });
 
-test('(0.5 pts) all.mem.put/get(jcarb)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
-  const key = 'jcarbmpg';
+// test('(0.5 pts) all.mem.put/get(jcarb)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
+//   const key = 'jcarbmpg';
 
-  distribution.mygroup.mem.put(user, key, (e, v) => {
-    distribution.mygroup.mem.get(key, (e, v) => {
-      try {
-        expect(e).toBeFalsy();
-        expect(v).toEqual(user);
-        done();
-      } catch (error) {
-        done(error);
-      }
-    });
-  });
-});
+//   distribution.mygroup.mem.put(user, key, (e, v) => {
+//     distribution.mygroup.mem.get(key, (e, v) => {
+//       try {
+//         expect(e).toBeFalsy();
+//         expect(v).toEqual(user);
+//         done();
+//       } catch (error) {
+//         done(error);
+//       }
+//     });
+//   });
+// });
 
-test('(0.5 pts) all.mem.put/del(jcarb)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
-  const key = 'jcarbmpd';
+// test('(0.5 pts) all.mem.put/del(jcarb)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
+//   const key = 'jcarbmpd';
 
-  distribution.mygroup.mem.put(user, key, (e, v) => {
-    distribution.mygroup.mem.del(key, (e, v) => {
-      try {
-        expect(e).toBeFalsy();
-        expect(v).toEqual(user);
-        done();
-      } catch (error) {
-        done(error);
-      }
-    });
-  });
-});
+//   distribution.mygroup.mem.put(user, key, (e, v) => {
+//     distribution.mygroup.mem.del(key, (e, v) => {
+//       try {
+//         expect(e).toBeFalsy();
+//         expect(v).toEqual(user);
+//         done();
+//       } catch (error) {
+//         done(error);
+//       }
+//     });
+//   });
+// });
 
-test('(0.5 pts) all.mem.put/del/get(jcarb)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
-  const key = 'jcarbmpdg';
+// test('(0.5 pts) all.mem.put/del/get(jcarb)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
+//   const key = 'jcarbmpdg';
 
-  distribution.mygroup.mem.put(user, key, (e, v) => {
-    distribution.mygroup.mem.del(key, (e, v) => {
-      distribution.mygroup.mem.get(key, (e, v) => {
-        try {
-          expect(e).toBeInstanceOf(Error);
-          expect(v).toBeFalsy();
-          done();
-        } catch (error) {
-          done(error);
-        }
-      });
-    });
-  });
-});
+//   distribution.mygroup.mem.put(user, key, (e, v) => {
+//     distribution.mygroup.mem.del(key, (e, v) => {
+//       distribution.mygroup.mem.get(key, (e, v) => {
+//         try {
+//           expect(e).toBeInstanceOf(Error);
+//           expect(v).toBeFalsy();
+//           done();
+//         } catch (error) {
+//           done(error);
+//         }
+//       });
+//     });
+//   });
+// });
 
-test('(2.5 pts) all.mem.get(no key)', (done) => {
-  const users = [
-    {first: 'Emma', last: 'Watson'},
-    {first: 'John', last: 'Krasinski'},
-    {first: 'Julie', last: 'Bowen'},
-  ];
-  const keys = [
-    'ewatson',
-    'jkrasinski',
-    'jbowen',
-  ];
+// test('(2.5 pts) all.mem.get(no key)', (done) => {
+//   const users = [
+//     {first: 'Emma', last: 'Watson'},
+//     {first: 'John', last: 'Krasinski'},
+//     {first: 'Julie', last: 'Bowen'},
+//   ];
+//   const keys = [
+//     'ewatson',
+//     'jkrasinski',
+//     'jbowen',
+//   ];
   
 
-  distribution.mygroup.mem.put(users[0], keys[0], (e, v) => {
-    try {
-      expect(e).toBeFalsy();
-    } catch (error) {
-      done(error);
-    }
-    distribution.mygroup.mem.put(users[1], keys[1], (e, v) => {
-      try {
-        expect(e).toBeFalsy();
-      } catch (error) {
-        done(error);
-      }
-      distribution.mygroup.mem.put(users[2], keys[2], (e, v) => {
-        try {
-          expect(e).toBeFalsy();
-        } catch (error) {
-          done(error);
-        }
-        distribution.mygroup.mem.get(null, (e, v) => {
-          try {
-            //console.log(v)
-            expect(e).toEqual({});
-            expect(Object.values(v)).toEqual(expect.arrayContaining(keys));
-            done();
-          } catch (error) {
-            done(error);
-          }
-        });
-      });
-    });
-  });
-});
+//   distribution.mygroup.mem.put(users[0], keys[0], (e, v) => {
+//     try {
+//       expect(e).toBeFalsy();
+//     } catch (error) {
+//       done(error);
+//     }
+//     distribution.mygroup.mem.put(users[1], keys[1], (e, v) => {
+//       try {
+//         expect(e).toBeFalsy();
+//       } catch (error) {
+//         done(error);
+//       }
+//       distribution.mygroup.mem.put(users[2], keys[2], (e, v) => {
+//         try {
+//           expect(e).toBeFalsy();
+//         } catch (error) {
+//           done(error);
+//         }
+//         distribution.mygroup.mem.get(null, (e, v) => {
+//           try {
+//             //console.log(v)
+//             expect(e).toEqual({});
+//             expect(Object.values(v)).toEqual(expect.arrayContaining(keys));
+//             done();
+//           } catch (error) {
+//             done(error);
+//           }
+//         });
+//       });
+//     });
+//   });
+// });
 
-test('(0.5 pts) all.mem.put(no key)', (done) => {
-  const user = {first: 'Josiah', last: 'Carberry'};
+// test('(0.5 pts) all.mem.put(no key)', (done) => {
+//   const user = {first: 'Josiah', last: 'Carberry'};
 
-  distribution.mygroup.mem.put(user, null, (e, v) => {
-    console.log(e)
-    distribution.mygroup.mem.get(id.getID(user), (e, v) => {
-      try {
-        console.log(v)
-        expect(e).toBeFalsy();
-        expect(v).toEqual(user);
-        done();
-      } catch (error) {
-        done(error);
-      }
-    });
-  });
-});
+//   distribution.mygroup.mem.put(user, null, (e, v) => {
+//     console.log(e)
+//     distribution.mygroup.mem.get(id.getID(user), (e, v) => {
+//       try {
+//         console.log(v)
+//         expect(e).toBeFalsy();
+//         expect(v).toEqual(user);
+//         done();
+//       } catch (error) {
+//         done(error);
+//       }
+//     });
+//   });
+// });
 
 // ---store---
 

@@ -59,7 +59,7 @@ put: (obj, key, callback) => {
     if (storedObject !== undefined) {
         callback(null, storedObject);
     } else {
-        callback(new Error("BROBRO"), null);
+        callback(new Error("Object not found"), null);
     }
 }
 },

@@ -53,12 +53,10 @@ let mem = (config) => {
                         // delete groupMap[node];
                     }}
             let enhancedKey = {key: key, gid: context.gid}
-            console.log(enhancedKey.key + "GET")
 
             const kid = id.getID(enhancedKey.key);
              const targetNID = context.hash(kid, nids);
              const targetNode = groupMap[targetNID.substring(0,5)];
-             console.log(targetNode)
              if(key === null){
                 global.distribution[context.gid].comm.send([enhancedKey],{service: 'mem', method: 'get'}, (e, v) => {
                     callback({},Object.values(v).flat())
