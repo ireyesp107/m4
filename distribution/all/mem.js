@@ -21,20 +21,24 @@ let mem = (config) => {
                         // delete groupMap[node];
                     }}
             let enhancedKey = {key: key, gid: context.gid}
-            const kid = id.getID(enhancedKey.key);
-             const targetNID = context.hash(kid, nids);
-             const targetNode = groupMap[targetNID.substring(0,5)];
 
             if(enhancedKey.key === null){
                 global.distribution[context.gid].comm.send([value, enhancedKey],{service: 'mem', method: 'put'}, (e, v) => {
                     callback({},Object.values(v).flat())
                 })
             }
-             else if (targetNID === id.getNID(global.nodeConfig)) {
+            
+
+            else{
+            const kid = id.getID(enhancedKey.key);
+             const targetNID = context.hash(kid, nids);
+             const targetNode = groupMap[targetNID.substring(0,5)];
+              if (targetNID === id.getNID(global.nodeConfig)) {
                 local.mem.put([value,enhancedKey],callback);
             } else {
                 local.comm.send([value,enhancedKey], {node: targetNode, service: 'mem', method: 'put'},callback)
             }
+        }
         })
         },
 
