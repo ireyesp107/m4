@@ -32,10 +32,37 @@ function naiveHash(kid, nids) {
 }
 
 function consistentHash(kid, nids) {
+  let ids = nids.map(nid => idToNum(nid));
+  let kidNum = idToNum(kid);
+  ids.push(kidNum);
+  ids.sort();
+  let foundIndex;
+  for(i = 0; i<ids.length; i++){
+    if(ids[i]===kidNum){
+      foundIndex=i+1;
+      break
+    }
+  }
+  if (foundIndex >= ids.length) foundIndex = 0; 
+
+  return nids.find(nid => idToNum(nid) === ids[foundIndex]);
 }
 
 
 function rendezvousHash(kid, nids) {
+  let localMax = -1;
+  let finalNid = null;
+  nids.forEach(nid => {
+    let combinedValue = kid + nid;
+    let hash = crypto.createHash('sha256').update(combinedValue).digest('hex');
+    let hashToNum = parseInt(hash); 
+    if (hashToNum >= localMax) { 
+      localMax = hashToNum;
+      finalNid = nid; 
+    }
+  });
+
+  return finalNid;
 }
 
 module.exports = {
