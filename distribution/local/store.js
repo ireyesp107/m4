@@ -29,8 +29,11 @@ const store = {
     const formattedKey = transformToAlphanumeric(newKey !== null ?
       newKey : id.getID(object));
     // const formattedKey = newKey !== null ? key : id.getID(object);
-    const filePath = path.join(baseDir, `${formattedKey}.json`);
-
+    const gidDirectory = path.join(baseDir, transformToAlphanumeric(gid));
+    if (!fs.existsSync(gidDirectory)) {
+      fs.mkdirSync(gidDirectory, { recursive: true });
+    }
+    const filePath = path.join(gidDirectory, `${formattedKey}.json`);
     const serializedObject = serialization.serialize(object);
 
     fs.writeFile(filePath, serializedObject, (err) => {
@@ -48,7 +51,9 @@ const store = {
       gid = defaultGID; // Use default gid if none provided
     }
       if (newKey === null) {
-      fs.readdir(baseDir, (err, files) => {
+      const gidDirectory = path.join(baseDir, transformToAlphanumeric(gid));
+      
+      fs.readdir(gidDirectory, (err, files) => {
         if (err) {
           callback(err, null);
           return;
@@ -62,7 +67,9 @@ const store = {
       });
     } else {
       const formattedKey = transformToAlphanumeric(newKey);
-      const filePath = path.join(baseDir, `${formattedKey}.json`);
+      const gidDirectory = path.join(baseDir, transformToAlphanumeric(gid));
+      const filePath = path.join(gidDirectory, `${formattedKey}.json`);
+      //const filePath = path.join(baseDir, `${formattedKey}.json`);
       fs.readFile(filePath, (err, data) => {
         if (err) {
           callback(new Error('Object not found'), null);
@@ -83,8 +90,10 @@ const store = {
       newKey = key;
       gid = defaultGID; // Use default gid if none provided
     }
-    const fortmattedKey = transformToAlphanumeric(newKey);
-    const filePath = path.join(baseDir, `${fortmattedKey}.json`);
+    const formattedKey = transformToAlphanumeric(newKey);
+    const gidDirectory = path.join(baseDir, transformToAlphanumeric(gid));
+    const filePath = path.join(gidDirectory, `${formattedKey}.json`);
+    //const filePath = path.join(baseDir, `${fortmattedKey}.json`);
     fs.readFile(filePath, (err, data) => {
       if (err) {
         callback(new Error('Object does not exist'), null);
