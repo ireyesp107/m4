@@ -1,3 +1,4 @@
+
 const fs = require('fs');
 const path = require('path');
 const serialization = require('../util/serialization');
@@ -5,7 +6,7 @@ const id = require('../util/id');
 
 
 // Define the base directory to keep my store
-const baseDir = path.join(__dirname, '..', 'localStore');
+const baseDir = path.join(__dirname, '..', '..', 'store');
 if (!fs.existsSync(baseDir)) {
   fs.mkdirSync(baseDir, {recursive: true});
 }

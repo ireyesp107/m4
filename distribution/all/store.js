@@ -15,8 +15,6 @@ let store = (config) => {
         for (const node in groupMap) {
           if (Object.prototype.hasOwnProperty.call(v, node)) {
             nids.push(id.getNID(groupMap[node]));
-            // groupMap[id.getNID(groupMap[node])] = groupMap[node]
-            // delete groupMap[node];
           }
         }
         let enhancedKey = {key: key, gid: context.gid};
@@ -26,14 +24,14 @@ let store = (config) => {
 
         if (enhancedKey.key === null) {
           global.distribution[context.gid].comm.send([value, enhancedKey],
-              {service: 'mem', method: 'put'}, (e, v) => {
+              {service: 'store', method: 'put'}, (e, v) => {
                 callback({}, Object.values(v).flat());
               });
         } else if (targetNID === id.getNID(global.nodeConfig)) {
-          local.mem.put([value, enhancedKey], callback);
+          local.store.put([value, enhancedKey], callback);
         } else {
           local.comm.send([value, enhancedKey],
-              {node: targetNode, service: 'mem', method: 'put'}, callback);
+              {node: targetNode, service: 'store', method: 'put'}, callback);
         }
       });
     },
@@ -59,14 +57,14 @@ let store = (config) => {
         const targetNode = groupMap[targetNID.substring(0, 5)];
         if (key === null) {
           global.distribution[context.gid].comm.send([enhancedKey],
-              {service: 'mem', method: 'get'}, (e, v) => {
+              {service: 'store', method: 'get'}, (e, v) => {
                 callback({}, Object.values(v).flat());
               });
         } else if (targetNID === id.getNID(global.nodeConfig)) {
-          local.mem.get([enhancedKey], callback);
+          local.store.get([enhancedKey], callback);
         } else {
           local.comm.send([enhancedKey],
-              {node: targetNode, service: 'mem', method: 'get'}, callback);
+              {node: targetNode, service: 'store', method: 'get'}, callback);
         }
       });
     },
@@ -88,10 +86,10 @@ let store = (config) => {
         const targetNID = context.hash(kid, nids);
         const targetNode = groupMap[targetNID.substring(0, 5)];
         if (targetNode.nid === id.getNID(global.nodeConfig)) {
-          local.mem.del([enhancedKey], callback);
+          local.store.del([enhancedKey], callback);
         } else {
           local.comm.send([enhancedKey],
-              {node: targetNode, service: 'mem', method: 'del'}, callback);
+              {node: targetNode, service: 'store', method: 'del'}, callback);
         }
       });
     },

@@ -22,7 +22,6 @@ let mem = (config) => {
         let enhancedKey = {key: key, gid: context.gid};
 
         if (enhancedKey.gid === 'all' || enhancedKey.key === null) {
-          console.log('CHAY ALLL PUTTT');
           global.distribution[context.gid].comm.send([value, enhancedKey],
               {service: 'mem', method: 'put'}, (e, v) => {
                 callback({}, Object.values(v).flat());
