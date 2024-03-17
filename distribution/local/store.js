@@ -31,7 +31,7 @@ const store = {
     // const formattedKey = newKey !== null ? key : id.getID(object);
     const gidDirectory = path.join(baseDir, transformToAlphanumeric(gid));
     if (!fs.existsSync(gidDirectory)) {
-      fs.mkdirSync(gidDirectory, { recursive: true });
+      fs.mkdirSync(gidDirectory, {recursive: true});
     }
     const filePath = path.join(gidDirectory, `${formattedKey}.json`);
     const serializedObject = serialization.serialize(object);
@@ -50,9 +50,9 @@ const store = {
       newKey = key;
       gid = defaultGID; // Use default gid if none provided
     }
-      if (newKey === null) {
+    if (newKey === null) {
       const gidDirectory = path.join(baseDir, transformToAlphanumeric(gid));
-      
+
       fs.readdir(gidDirectory, (err, files) => {
         if (err) {
           callback(err, null);
@@ -69,7 +69,7 @@ const store = {
       const formattedKey = transformToAlphanumeric(newKey);
       const gidDirectory = path.join(baseDir, transformToAlphanumeric(gid));
       const filePath = path.join(gidDirectory, `${formattedKey}.json`);
-      //const filePath = path.join(baseDir, `${formattedKey}.json`);
+      // const filePath = path.join(baseDir, `${formattedKey}.json`);
       fs.readFile(filePath, (err, data) => {
         if (err) {
           callback(new Error('Object not found'), null);
@@ -93,7 +93,7 @@ const store = {
     const formattedKey = transformToAlphanumeric(newKey);
     const gidDirectory = path.join(baseDir, transformToAlphanumeric(gid));
     const filePath = path.join(gidDirectory, `${formattedKey}.json`);
-    //const filePath = path.join(baseDir, `${fortmattedKey}.json`);
+    // const filePath = path.join(baseDir, `${fortmattedKey}.json`);
     fs.readFile(filePath, (err, data) => {
       if (err) {
         callback(new Error('Object does not exist'), null);
