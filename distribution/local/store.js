@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const serialization = require('../util/serialization');
 const id = require('../util/id');
+const defaultGID = 'local';
 
 
-// Define the base directory to keep my store
 const baseDir = path.join(__dirname, '..', '..', 'store');
 if (!fs.existsSync(baseDir)) {
   fs.mkdirSync(baseDir, {recursive: true});
@@ -17,8 +17,18 @@ function transformToAlphanumeric(key) {
 
 const store = {
   put: (object, key, callback) => {
-    const formattedKey = transformToAlphanumeric(key !== null ?
-      key : id.getID(object));
+    let newKey; let gid;
+    if (typeof key === 'object' && key !== null) {
+      newKey = key.key;
+      gid = key.gid;
+    } else {
+      newKey = key;
+      gid = defaultGID; // Use default gid if none provided
+    }
+
+    const formattedKey = transformToAlphanumeric(newKey !== null ?
+      newKey : id.getID(object));
+    // const formattedKey = newKey !== null ? key : id.getID(object);
     const filePath = path.join(baseDir, `${formattedKey}.json`);
 
     const serializedObject = serialization.serialize(object);
@@ -29,8 +39,15 @@ const store = {
   },
 
   get: (key, callback) => {
-    // this is the case in which user does not input a key
-    if (key === null) {
+    let newKey; let gid;
+    if (typeof key === 'object' && key !== null) {
+      newKey = key.key;
+      gid = key.gid;
+    } else {
+      newKey = key;
+      gid = defaultGID; // Use default gid if none provided
+    }
+      if (newKey === null) {
       fs.readdir(baseDir, (err, files) => {
         if (err) {
           callback(err, null);
@@ -44,7 +61,7 @@ const store = {
         callback(null, returnKeys);
       });
     } else {
-      const formattedKey = transformToAlphanumeric(key);
+      const formattedKey = transformToAlphanumeric(newKey);
       const filePath = path.join(baseDir, `${formattedKey}.json`);
       fs.readFile(filePath, (err, data) => {
         if (err) {
@@ -58,7 +75,15 @@ const store = {
   },
 
   del: (key, callback) => {
-    const fortmattedKey = transformToAlphanumeric(key);
+    let newKey; let gid;
+    if (typeof key === 'object' && key !== null) {
+      newKey = key.key;
+      gid = key.gid;
+    } else {
+      newKey = key;
+      gid = defaultGID; // Use default gid if none provided
+    }
+    const fortmattedKey = transformToAlphanumeric(newKey);
     const filePath = path.join(baseDir, `${fortmattedKey}.json`);
     fs.readFile(filePath, (err, data) => {
       if (err) {

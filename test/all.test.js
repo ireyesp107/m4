@@ -1,4 +1,4 @@
-global.nodeConfig = {ip: '127.0.0.1', port: 8090};
+global.nodeConfig = {ip: '127.0.0.1', port: 8080};
 const distribution = require('../distribution');
 const id = distribution.util.id;
 
