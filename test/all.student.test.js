@@ -143,46 +143,109 @@ afterAll((done) => {
   });
 });
 
-test('(0 pts) sample test', () => {
-  const t = true;
-  expect(t).toBe(true);
-});
-test('(0 pts) sample test', () => {
-  const t = true;
-  expect(t).toBe(true);
-});
-test('(0 pts) sample test', () => {
-  const t = true;
-  expect(t).toBe(true);
-});
-test('(0 pts) sample test', () => {
-  const t = true;
-  expect(t).toBe(true);
-});
-test('(0 pts) sample test', () => {
-  const t = true;
-  expect(t).toBe(true);
-});
-test('(2 pts) all.mem.reconf(naiveHash)', (done) => {
-  //  ________________________________________
-  // / NOTE: If this test fails locally, make \
-  // | sure you delete the contents of the    |
-  // | store/ directory (not the directory    |
-  // | itself!), so your results are          |
-  // \ reproducible                           /
-  //  ----------------------------------------
-  //         \   ^__^
-  //          \  (oo)\_______
-  //             (__)\       )\/\
-  //                 ||----w |
-  //                 ||     ||
+test('group.put/group.del/all.get(no keys)', (done) => {
+  const users = [
+    {first: 'Chay', last: 'Reyes'},
+    {first: 'Alex', last: 'Reyes'},
+  ];
+  const keys = [
+    'chay',
+    'alex',
+  ];
 
-  // group1 - naiveHash - n4, n5, n6
 
-  // First, we check where the keys should be placed
-  // before we change the group's nodes.
-  // group1 uses the naiveHash function for item placement,
-  // so we test using the same naiveHash function
+  distribution.mygroup.mem.put(users[0], keys[0], (e, v) => {
+    try {
+      expect(e).toBeFalsy();
+    } catch (error) {
+      done(error);
+    }
+    distribution.mygroup.mem.put(users[1], keys[1], (e, v) => {
+      try {
+        expect(e).toBeFalsy();
+      } catch (error) {
+        done(error);
+      }
+      distribution.mygroup.mem.del(keys[1], (e, v) => {
+        try {
+          expect(e).toBeFalsy();
+        } catch (error) {
+          done(error);
+        }
+        distribution.all.mem.get(null, (e, v) => {
+          try {
+            expect(e).toEqual({});
+            expect(Object.values(v)).toEqual([keys[0]]);
+            done();
+          } catch (error) {
+            done(error);
+          }
+        });
+      });
+    });
+  });
+});
+
+
+test('all.store.put(chay)/local.comm.send(store.get(chay)different nodes',
+    (done) => {
+      const user = {first: 'Chay', last: 'Reyes'};
+      const key = 'chay';
+      const kid = id.getID(key);
+      const nodes = [n1, n3, n5];
+      const nids = nodes.map((node) => id.getNID(node));
+
+      distribution.group2.store.put(user, key, (e, v) => {
+        const nid = id.rendezvousHash(kid, nids);
+        const pickedNode = nodes.find((node) => id.getNID(node) === nid);
+        const remote = {node: pickedNode, service: 'store', method: 'get'};
+        const message = [{gid: 'group2', key: key}];
+
+        distribution.local.comm.send(message, remote, (e, v) => {
+          try {
+            expect(e).toBeFalsy();
+            expect(v).toEqual(user);
+            done();
+          } catch (error) {
+            done(error);
+          }
+        });
+      });
+    });
+
+test('all.mem.put(no key)/get', (done) => {
+  const user = {first: 'Josiah', last: 'Carberry'};
+
+  distribution.all.mem.put(user, null, (e, v) => {
+    distribution.mygroup.mem.get(id.getID(user), (e, v) => {
+      try {
+        expect(e).toBeInstanceOf(Error);
+        expect(v).toBeFalsy();
+        done();
+      } catch (error) {
+        done(error);
+      }
+    });
+  });
+});
+
+test('all.store.put(chay)/mygroup.store.del(chay)', (done) => {
+  const user = {first: 'Chay', last: 'Reyes'};
+  const key = 'chay';
+
+  distribution.all.store.put(user, key, (e, v) => {
+    distribution.mygroup.store.del(key, (e, v) => {
+      try {
+        expect(e).toBeInstanceOf(Error);
+        expect(v).toBeFalsy();
+        done();
+      } catch (error) {
+        done(error);
+      }
+    });
+  });
+});
+test('all.mem.reconf(naiveHash)', (done) => {
   const users = [
     {first: 'Emma', last: 'Watson'},
     {first: 'John', last: 'Krasinski'},
@@ -205,15 +268,11 @@ test('(2 pts) all.mem.reconf(naiveHash)', (done) => {
   const nodesPicked = nidsPicked.map(
       (nid) => nodes.filter((node) => id.getNID(node) === nid)[0],
   );
-  // key 0 ends up on n6, while keys 1-4 end up on n4
-  // (the following console.logs should confirm that)
+
   nodesPicked.forEach(
       (node, key) => console.log('BEFORE! key: ', key, 'node: ', node),
   );
 
-  // Then, we remove n5 from the list of nodes,
-  // and use the naiveHash function again,
-  // to see where items should end up after this change
   const nodesAfter = [n4, n6];
   const nidsAfter = nodesAfter.map((node) => id.getNID(node));
 
@@ -222,13 +281,10 @@ test('(2 pts) all.mem.reconf(naiveHash)', (done) => {
       (nid) => nodesAfter.filter((node) => id.getNID(node) === nid)[0],
   );
 
-  // After removal, all keys end up on n6
-  // (Again, the console.logs should be consistent with that!)
   nodesPickedAfter.forEach(
       (node, key) => console.log('AFTER! key: ', key, 'node: ', node),
   );
 
-  // This function will be called after we put items in nodes
   const checkPlacement = (e, v) => {
     try {
       const remote = {node: n6, service: 'mem', method: 'get'};
