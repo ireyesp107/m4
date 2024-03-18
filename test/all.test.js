@@ -976,6 +976,8 @@ test('(2 pts) all.store.reconf(naiveHash)', (done) => {
 
           distribution.local.comm.send(messages[2], remote, (e, v) => {
             try {
+              console.log(e)
+              console.log(v)
               expect(e).toBeFalsy();
               expect(v).toEqual(users[2]);
             } catch (error) {

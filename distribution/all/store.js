@@ -127,12 +127,11 @@ let store = (config) => {
                         (e, v)=>{
                           local.comm.send([replaceObject, replacedKey],
                               {node: replaceNode, service: 'store',
-                                method: 'put'}, (e, v)=>{});
+                                method: 'put'}, callback);
                         });
                   });
             }
           });
-          callback(null, null);
         });
       });
     },
