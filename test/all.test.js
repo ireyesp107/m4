@@ -663,7 +663,6 @@ test('(2.5 pts) all.mem.get(no key)', (done) => {
         }
         distribution.mygroup.mem.get(null, (e, v) => {
           try {
-            // console.log(v)
             expect(e).toEqual({});
             expect(Object.values(v)).toEqual(expect.arrayContaining(keys));
             done();
@@ -680,10 +679,8 @@ test('(0.5 pts) all.mem.put(no key)', (done) => {
   const user = {first: 'Josiah', last: 'Carberry'};
 
   distribution.mygroup.mem.put(user, null, (e, v) => {
-    console.log(e);
     distribution.mygroup.mem.get(id.getID(user), (e, v) => {
       try {
-        console.log(v);
         expect(e).toBeFalsy();
         expect(v).toEqual(user);
         done();

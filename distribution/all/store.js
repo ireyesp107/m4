@@ -111,12 +111,13 @@ let store = (config) => {
             return;
           }
           let oldNIDs= Object.values(oldGroupMap).map((n) => id.getNID(n));
-          console.log(keys);
           keys.forEach((key) => {
             const kid = id.getID(key);
             const oldTargetNID = context.hash(kid, oldNIDs);
             const newTargetNID = context.hash(kid, nids);
             const replaceNode = oldGroupMap[oldTargetNID.substring(0, 5)];
+            const newNode = groupMap[newTargetNID.substring(0, 5)];
+
             let replacedKey = {key: key, gid: context.gid};
             if (oldTargetNID !== newTargetNID) {
               local.comm.send([replacedKey],
@@ -127,7 +128,7 @@ let store = (config) => {
                         {node: replaceNode, service: 'store', method: 'del'},
                         (e, v)=>{
                           local.comm.send([replaceObject, replacedKey],
-                              {node: replaceNode, service: 'store',
+                              {node: newNode, service: 'store',
                                 method: 'put'}, callback);
                         });
                   });

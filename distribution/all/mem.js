@@ -9,14 +9,11 @@ let mem = (config) => {
     put: (value, key, callback) => {
       let groupMap = {};
       local.groups.get(context.gid, (e, v) => {
-        // global.distribution[context.gid].groups.get(context.gid , (e, v) => {
         groupMap = v;
         let nids = [];
         for (const node in groupMap) {
           if (Object.prototype.hasOwnProperty.call(v, node)) {
             nids.push(id.getNID(groupMap[node]));
-            // groupMap[id.getNID(groupMap[node])] = groupMap[node]
-            // delete groupMap[node];
           }
         }
         let enhancedKey = {key: key, gid: context.gid};
@@ -43,15 +40,12 @@ let mem = (config) => {
     get: (key, callback) => {
       let groupMap = {};
       local.groups.get(context.gid, (e, v) => {
-        // global.distribution[context.gid].groups.get(context.gid , (e, v) => {
         groupMap = v;
 
         let nids = [];
         for (const node in groupMap) {
           if (Object.prototype.hasOwnProperty.call(v, node)) {
             nids.push(id.getNID(groupMap[node]));
-            // groupMap[id.getNID(groupMap[node])] = groupMap[node]
-            // delete groupMap[node];
           }
         }
         let enhancedKey = {key: key, gid: context.gid};
@@ -76,7 +70,6 @@ let mem = (config) => {
     del: (key, callback) => {
       let groupMap = {};
       local.groups.get(context.gid, (e, v) => {
-        // global.distribution[context.gid].groups.get(context.gid , (e, v) => {
         groupMap = v;
 
         let nids = [];
@@ -127,7 +120,6 @@ let mem = (config) => {
                 const replaceNode = oldGroupMap[oldTargetNID.substring(0, 5)];
                 const newNode = groupMap[newTargetNID.substring(0, 5)];
 
-                console.log(newNode);
                 let replacedKey = {key: key, gid: context.gid};
                 if (oldTargetNID !== newTargetNID) {
                   local.comm.send([replacedKey],
