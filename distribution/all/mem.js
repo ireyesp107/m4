@@ -114,34 +114,36 @@ let mem = (config) => {
         }
         let enhancedKey = {key: null, gid: context.gid};
 
-        local.mem.get(enhancedKey, (err, keys) => {
-          if (err) {
-            callback(err);
-            return;
-          }
-          let oldNIDs= Object.values(oldGroupMap).map((n) => id.getNID(n));
-          keys.forEach((key) => {
-            const kid = id.getID(key);
-            const oldTargetNID = context.hash(kid, oldNIDs);
-            const newTargetNID = context.hash(kid, nids);
-            const replaceNode = oldGroupMap[oldTargetNID.substring(0, 5)];
-            let replacedKey = {key: key, gid: context.gid};
-            if (oldTargetNID !== newTargetNID) {
-              local.comm.send([replacedKey],
-                  {node: replaceNode, service: 'mem', method: 'get'},
-                  (e, v)=>{
-                    const replaceObject = v;
-                    local.comm.send([replacedKey],
-                        {node: replaceNode, service: 'mem', method: 'del'},
-                        (e, v)=>{
-                          local.comm.send([replaceObject, replacedKey],
-                              {node: replaceNode, service: 'mem',
-                                method: 'put'}, callback);
-                        });
-                  });
-            }
-          });
-        });
+        // local.mem.get(enhancedKey, (err, keys) => {
+        global.distribution[context.gid].comm.send([enhancedKey],
+            {service: 'mem', method: 'get'}, (err, v) => {
+            // callback({}, Object.values(v).flat());
+              let keys = Object.values(v).flat();
+
+              let oldNIDs= Object.values(oldGroupMap).map((n) => id.getNID(n));
+
+              keys.forEach((key) => {
+                const kid = id.getID(key);
+                const oldTargetNID = context.hash(kid, oldNIDs);
+                const newTargetNID = context.hash(kid, nids);
+                const replaceNode = oldGroupMap[oldTargetNID.substring(0, 5)];
+                let replacedKey = {key: key, gid: context.gid};
+                if (oldTargetNID !== newTargetNID) {
+                  local.comm.send([replacedKey],
+                      {node: replaceNode, service: 'mem', method: 'get'},
+                      (e, v)=>{
+                        const replaceObject = v;
+                        local.comm.send([replacedKey],
+                            {node: replaceNode, service: 'mem', method: 'del'},
+                            (e, v)=>{
+                              local.comm.send([replaceObject, replacedKey],
+                                  {node: replaceNode, service: 'mem',
+                                    method: 'put'}, callback);
+                            });
+                      });
+                }
+              });
+            });
       });
     },
   };

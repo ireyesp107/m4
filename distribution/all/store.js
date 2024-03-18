@@ -111,6 +111,7 @@ let store = (config) => {
             return;
           }
           let oldNIDs= Object.values(oldGroupMap).map((n) => id.getNID(n));
+          console.log(keys);
           keys.forEach((key) => {
             const kid = id.getID(key);
             const oldTargetNID = context.hash(kid, oldNIDs);
