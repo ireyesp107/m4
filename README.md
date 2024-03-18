@@ -1,7 +1,7 @@
 # M4: Distributed Storage
-> Full name: `<first last>`
-> Email:  `<email@brown.edu>`
-> Username:  `cslogin`
+> Full name: `<Isaias Reyes-Paredes>`
+> Email:  `<isaias_reyes-paredes@brown.edu>`
+> Username:  `ireyespa`
 
 ## Summary
 > Summarize your implementation, including key challenges you encountered
