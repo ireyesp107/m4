@@ -881,152 +881,152 @@ test(
     },
 );
 
-// test('(2 pts) all.store.reconf(naiveHash)', (done) => {
-//   //  ________________________________________
-//   // / NOTE: If this test fails locally, make \
-//   // | sure you delete the contents of the    |
-//   // | store/ directory (not the directory    |
-//   // | itself!), so your results are          |
-//   // \ reproducible                           /
-//   //  ----------------------------------------
-//   //         \   ^__^
-//   //          \  (oo)\_______
-//   //             (__)\       )\/\
-//   //                 ||----w |
-//   //                 ||     ||
+test('(2 pts) all.store.reconf(naiveHash)', (done) => {
+  //  ________________________________________
+  // / NOTE: If this test fails locally, make \
+  // | sure you delete the contents of the    |
+  // | store/ directory (not the directory    |
+  // | itself!), so your results are          |
+  // \ reproducible                           /
+  //  ----------------------------------------
+  //         \   ^__^
+  //          \  (oo)\_______
+  //             (__)\       )\/\
+  //                 ||----w |
+  //                 ||     ||
 
-//   // group1 - naiveHash - n4, n5, n6
+  // group1 - naiveHash - n4, n5, n6
 
-//   // First, we check where the keys should be placed
-//   // before we change the group's nodes.
-//   // group1 uses the naiveHash function for item placement,
-//   // so we test using the same naiveHash function
-//   const users = [
-//     {first: 'Emma', last: 'Watson'},
-//     {first: 'John', last: 'Krasinski'},
-//     {first: 'Julie', last: 'Bowen'},
-//     {first: 'Sasha', last: 'Spielberg'},
-//     {first: 'Tim', last: 'Nelson'},
-//   ];
-//   const keys = [
-//     'ewatsonmrnh',
-//     'jkrasinskimrnh',
-//     'jbowenmrnh',
-//     'sspielbergmrnh',
-//     'tnelsonmrnh',
-//   ];
-//   const kids = keys.map((key) => id.getID(key));
-//   const nodes = [n4, n5, n6];
-//   const nids = nodes.map((node) => id.getNID(node));
+  // First, we check where the keys should be placed
+  // before we change the group's nodes.
+  // group1 uses the naiveHash function for item placement,
+  // so we test using the same naiveHash function
+  const users = [
+    {first: 'Emma', last: 'Watson'},
+    {first: 'John', last: 'Krasinski'},
+    {first: 'Julie', last: 'Bowen'},
+    {first: 'Sasha', last: 'Spielberg'},
+    {first: 'Tim', last: 'Nelson'},
+  ];
+  const keys = [
+    'ewatsonmrnh',
+    'jkrasinskimrnh',
+    'jbowenmrnh',
+    'sspielbergmrnh',
+    'tnelsonmrnh',
+  ];
+  const kids = keys.map((key) => id.getID(key));
+  const nodes = [n4, n5, n6];
+  const nids = nodes.map((node) => id.getNID(node));
 
-//   const nidsPicked = kids.map((kid) => id.naiveHash(kid, nids));
-//   const nodesPicked = nidsPicked.map(
-//       (nid) => nodes.filter((node) => id.getNID(node) === nid)[0],
-//   );
-//   // key 0 ends up on n6, while keys 1-4 end up on n4
-//   // (the following console.logs should confirm that)
-//   nodesPicked.forEach(
-//       (node, key) => console.log('BEFORE! key: ', key, 'node: ', node),
-//   );
+  const nidsPicked = kids.map((kid) => id.naiveHash(kid, nids));
+  const nodesPicked = nidsPicked.map(
+      (nid) => nodes.filter((node) => id.getNID(node) === nid)[0],
+  );
+  // key 0 ends up on n6, while keys 1-4 end up on n4
+  // (the following console.logs should confirm that)
+  nodesPicked.forEach(
+      (node, key) => console.log('BEFORE! key: ', key, 'node: ', node),
+  );
 
-//   // Then, we remove n5 from the list of nodes,
-//   // and use the naiveHash function again,
-//   // to see where items should end up after this change
-//   const nodesAfter = [n4, n6];
-//   const nidsAfter = nodesAfter.map((node) => id.getNID(node));
+  // Then, we remove n5 from the list of nodes,
+  // and use the naiveHash function again,
+  // to see where items should end up after this change
+  const nodesAfter = [n4, n6];
+  const nidsAfter = nodesAfter.map((node) => id.getNID(node));
 
-//   const nidsPickedAfter = kids.map((kid) => id.naiveHash(kid, nidsAfter));
-//   const nodesPickedAfter = nidsPickedAfter.map(
-//       (nid) => nodesAfter.filter((node) => id.getNID(node) === nid)[0],
-//   );
+  const nidsPickedAfter = kids.map((kid) => id.naiveHash(kid, nidsAfter));
+  const nodesPickedAfter = nidsPickedAfter.map(
+      (nid) => nodesAfter.filter((node) => id.getNID(node) === nid)[0],
+  );
 
-//   // After removal, all keys end up on n6
-//   // (Again, the console.logs should be consistent with that!)
-//   nodesPickedAfter.forEach(
-//       (node, key) => console.log('AFTER! key: ', key, 'node: ', node),
-//   );
+  // After removal, all keys end up on n6
+  // (Again, the console.logs should be consistent with that!)
+  nodesPickedAfter.forEach(
+      (node, key) => console.log('AFTER! key: ', key, 'node: ', node),
+  );
 
-//   // This function will be called after we put items in nodes
-//   const checkPlacement = (e, v) => {
-//     try {
-//       const remote = {node: n6, service: 'store', method: 'get'};
-//       const messages = [
-//         [{key: keys[0], gid: 'group1'}],
-//         [{key: keys[1], gid: 'group1'}],
-//         [{key: keys[2], gid: 'group1'}],
-//         [{key: keys[3], gid: 'group1'}],
-//         [{key: keys[4], gid: 'group1'}],
-//       ];
+  // This function will be called after we put items in nodes
+  const checkPlacement = (e, v) => {
+    try {
+      const remote = {node: n6, service: 'store', method: 'get'};
+      const messages = [
+        [{key: keys[0], gid: 'group1'}],
+        [{key: keys[1], gid: 'group1'}],
+        [{key: keys[2], gid: 'group1'}],
+        [{key: keys[3], gid: 'group1'}],
+        [{key: keys[4], gid: 'group1'}],
+      ];
 
-//       distribution.local.comm.send(messages[0], remote, (e, v) => {
-//         try {
-//           expect(e).toBeFalsy();
-//           expect(v).toEqual(users[0]);
-//         } catch (error) {
-//           done(error);
-//         }
+      distribution.local.comm.send(messages[0], remote, (e, v) => {
+        try {
+          expect(e).toBeFalsy();
+          expect(v).toEqual(users[0]);
+        } catch (error) {
+          done(error);
+        }
 
-//         distribution.local.comm.send(messages[1], remote, (e, v) => {
-//           try {
-//             expect(e).toBeFalsy();
-//             expect(v).toEqual(users[1]);
-//           } catch (error) {
-//             done(error);
-//           }
+        distribution.local.comm.send(messages[1], remote, (e, v) => {
+          try {
+            expect(e).toBeFalsy();
+            expect(v).toEqual(users[1]);
+          } catch (error) {
+            done(error);
+          }
 
-//           distribution.local.comm.send(messages[2], remote, (e, v) => {
-//             try {
-//               expect(e).toBeFalsy();
-//               expect(v).toEqual(users[2]);
-//             } catch (error) {
-//               done(error);
-//             }
+          distribution.local.comm.send(messages[2], remote, (e, v) => {
+            try {
+              expect(e).toBeFalsy();
+              expect(v).toEqual(users[2]);
+            } catch (error) {
+              done(error);
+            }
 
-//             distribution.local.comm.send(messages[3], remote, (e, v) => {
-//               try {
-//                 expect(e).toBeFalsy();
-//                 expect(v).toEqual(users[3]);
-//               } catch (error) {
-//                 done(error);
-//               }
+            distribution.local.comm.send(messages[3], remote, (e, v) => {
+              try {
+                expect(e).toBeFalsy();
+                expect(v).toEqual(users[3]);
+              } catch (error) {
+                done(error);
+              }
 
-//               distribution.local.comm.send(messages[4], remote, (e, v) => {
-//                 try {
-//                   expect(e).toBeFalsy();
-//                   expect(v).toEqual(users[4]);
-//                   done();
-//                 } catch (error) {
-//                   done(error);
-//                 }
-//               });
-//             });
-//           });
-//         });
-//       });
-//     } catch (error) {
-//       done(error);
-//     }
-//   };
+              distribution.local.comm.send(messages[4], remote, (e, v) => {
+                try {
+                  expect(e).toBeFalsy();
+                  expect(v).toEqual(users[4]);
+                  done();
+                } catch (error) {
+                  done(error);
+                }
+              });
+            });
+          });
+        });
+      });
+    } catch (error) {
+      done(error);
+    }
+  };
 
-//   // Now we actually put items in the group,
-//   // remove n5, and check if the items are placed correctly
-//   distribution.group1.store.put(users[0], keys[0], (e, v) => {
-//     distribution.group1.store.put(users[1], keys[1], (e, v) => {
-//       distribution.group1.store.put(users[2], keys[2], (e, v) => {
-//         distribution.group1.store.put(users[3], keys[3], (e, v) => {
-//           distribution.group1.store.put(users[4], keys[4], (e, v)=> {
-//             // We need to pass a copy of the group's
-//             // nodes before the changes to reconf()
-//             const groupCopy = {...group1Group};
-//             distribution.group1.groups.rem(
-//                 'group1',
-//                 id.getSID(n5),
-//                 (e, v) => {
-//                  distribution.group1.store.reconf(groupCopy, checkPlacement);
-//                 });
-//           });
-//         });
-//       });
-//     });
-//   });
-// });
+  // Now we actually put items in the group,
+  // remove n5, and check if the items are placed correctly
+  distribution.group1.store.put(users[0], keys[0], (e, v) => {
+    distribution.group1.store.put(users[1], keys[1], (e, v) => {
+      distribution.group1.store.put(users[2], keys[2], (e, v) => {
+        distribution.group1.store.put(users[3], keys[3], (e, v) => {
+          distribution.group1.store.put(users[4], keys[4], (e, v)=> {
+            // We need to pass a copy of the group's
+            // nodes before the changes to reconf()
+            const groupCopy = {...group1Group};
+            distribution.group1.groups.rem(
+                'group1',
+                id.getSID(n5),
+                (e, v) => {
+                  distribution.group1.store.reconf(groupCopy, checkPlacement);
+                });
+          });
+        });
+      });
+    });
+  });
+});
