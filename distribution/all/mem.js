@@ -114,10 +114,8 @@ let mem = (config) => {
         }
         let enhancedKey = {key: null, gid: context.gid};
 
-        // local.mem.get(enhancedKey, (err, keys) => {
         global.distribution[context.gid].comm.send([enhancedKey],
             {service: 'mem', method: 'get'}, (err, v) => {
-            // callback({}, Object.values(v).flat());
               let keys = Object.values(v).flat();
 
               let oldNIDs= Object.values(oldGroupMap).map((n) => id.getNID(n));
@@ -127,6 +125,9 @@ let mem = (config) => {
                 const oldTargetNID = context.hash(kid, oldNIDs);
                 const newTargetNID = context.hash(kid, nids);
                 const replaceNode = oldGroupMap[oldTargetNID.substring(0, 5)];
+                const newNode = groupMap[newTargetNID.substring(0, 5)];
+
+                console.log(newNode);
                 let replacedKey = {key: key, gid: context.gid};
                 if (oldTargetNID !== newTargetNID) {
                   local.comm.send([replacedKey],
@@ -137,7 +138,7 @@ let mem = (config) => {
                             {node: replaceNode, service: 'mem', method: 'del'},
                             (e, v)=>{
                               local.comm.send([replaceObject, replacedKey],
-                                  {node: replaceNode, service: 'mem',
+                                  {node: newNode, service: 'mem',
                                     method: 'put'}, callback);
                             });
                       });
